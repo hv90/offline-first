@@ -19,13 +19,9 @@ self.addEventListener("fetch", (event) => {
   console.log("requested ", event.request);
 
   event.respondWith(
-    caches.match("offline.html")
-    /* caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() => {
-        console.log('catch');
-        caches.match('offline.html');
-      });
-    }), */
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch(() => caches.match("offline.html"));
+    })
   );
 });
 
