@@ -39,15 +39,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
+      let registration;
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
             .register("%PUBLIC_URL%/serviceWorker.js")
-            .then((reg) => console.log("Success: ", reg.scope))
+            .then((reg) => {
+              registration = reg;
+              console.log("Success: ", reg.scope);
+            })
             .catch((err) => console.warn("Error: ", err));
         });
       }
-    </script> -->
+
+      this.addEventListener("fetch", (event) => {
+        console.log("service worker updated");
+        registration.update();
+      });
+    </script>
   </body>
 </html>
