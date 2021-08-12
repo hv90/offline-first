@@ -7,7 +7,7 @@ const self = this;
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Installed cache ");
+      console.log("Installed cache ", cache);
 
       return cache.addAll(urlsToCache);
     })
@@ -29,6 +29,8 @@ self.addEventListener("fetch", (event) => {
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [];
   cacheWhitelist.push(CACHE_NAME);
+
+  console.log("activate ", event);
 
   event.waitUntil(
     caches.keys().then((cacheNames) =>
