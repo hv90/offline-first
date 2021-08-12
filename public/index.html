@@ -45,7 +45,18 @@
           navigator.serviceWorker
             .register("%PUBLIC_URL%/serviceWorker.js")
             .then((reg) => {
-              reg.update();
+              reg.addEventListener("updatefound", function () {
+                // If updatefound is fired, it means that there's
+                // a new service worker being installed.
+                var installingWorker = registration.installing;
+                console.log(
+                  "A new service worker is being installed:",
+                  installingWorker
+                );
+
+                // You can listen for changes to the installing service worker's
+                // state via installingWorker.onstatechange
+              });
               console.log("Success: ", reg.scope);
             })
             .catch((err) => console.warn("Error: ", err));
