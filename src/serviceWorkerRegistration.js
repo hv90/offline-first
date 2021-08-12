@@ -1,6 +1,6 @@
 export default function serviceWorkerRegistration() {
   const swUrl = `${process.env.PUBLIC_URL}/serviceworker.js`;
-  navigator.serviceWorker.register(swUrl).then((response) => {
-    console.log("response: ", response);
+  navigator.serviceWorker.register(swUrl).then((registration) => {
+    registration.update();
   });
 }
