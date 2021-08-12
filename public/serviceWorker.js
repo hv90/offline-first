@@ -1,5 +1,5 @@
 const CACHE_NAME = "v1";
-const urlsToCache = ["offline.html", "logo512.png"];
+const urlsToCache = ["/offline.html", "/logo512.png"];
 
 const self = this;
 
@@ -7,7 +7,7 @@ const self = this;
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Installed cache ", cache);
+      console.log("Installing cache... ");
 
       return cache.addAll(urlsToCache);
     })
@@ -27,6 +27,7 @@ self.addEventListener("fetch", (event) => {
 
 // Activate
 self.addEventListener("activate", (event) => {
+  console.log("Installed cache ");
   /* const cacheWhitelist = [];
   cacheWhitelist.push(CACHE_NAME);
 
