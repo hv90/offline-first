@@ -1,5 +1,5 @@
 const CACHE_NAME = "v1";
-const urlsToCache = ["/offline.html", "/logo512.png"];
+const urlsToCache = ["offline.html", "logo512.png"];
 
 const self = this;
 
