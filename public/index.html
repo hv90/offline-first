@@ -50,13 +50,10 @@
               console.log("Success: ", reg.scope);
             })
             .catch((err) => console.warn("Error: ", err));
+
+          registration.update();
         });
       }
-
-      window.addEventListener("load", (event) => {
-        console.log("service worker updated");
-        registration.update();
-      });
     </script>
   </body>
 </html>
