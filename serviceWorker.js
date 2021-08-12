@@ -25,6 +25,11 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+//Ready
+self.addEventListener("load", (event) => {
+  console.log("ready", caches);
+});
+
 // Activate
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [];
