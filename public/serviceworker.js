@@ -1,7 +1,7 @@
 const CACHE_NAME = "v1";
 let a = 0;
 a++;
-const urlsToCache = ["offline.html", "logo512.png", `${a}`];
+const urlsToCache = ["offline.html", "logo512.png"];
 
 const self = this;
 
@@ -18,7 +18,7 @@ self.addEventListener("install", (event) => {
 
 // Wait
 self.addEventListener("fetch", (event) => {
-  console.log("requested ", event.request);
+  console.log("requested ", a, event.request);
 
   event.respondWith(
     caches.match(event.request).then(() => {
