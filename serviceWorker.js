@@ -25,14 +25,9 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-//Ready
-self.addEventListener("load", (event) => {
-  console.log("ready", caches);
-});
-
 // Activate
 self.addEventListener("activate", (event) => {
-  const cacheWhitelist = [];
+  /* const cacheWhitelist = [];
   cacheWhitelist.push(CACHE_NAME);
 
   console.log("activate ", event);
@@ -47,5 +42,5 @@ self.addEventListener("activate", (event) => {
         })
       )
     )
-  );
+  ); */
 });
