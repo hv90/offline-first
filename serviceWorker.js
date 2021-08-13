@@ -28,17 +28,18 @@ self.addEventListener("fetch", (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  /*   urlsToCache.forEach((url) => {
+  urlsToCache.forEach((url) => {
     event.respondWith(
       caches.match(event.request).then(() => {
         return fetch(event.request).catch(() =>
           caches.open(CACHE_NAME).then((cache) => {
+            console.log(cache.match(url));
             return cache.match(url);
           })
         );
       })
     );
-  }); */
+  });
 });
 
 // Activate
