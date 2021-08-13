@@ -29,22 +29,10 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  if (urlsToCache.includes(event.request.url)) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then((cache) => {
-        return fetch(event.request).then(function (response) {
-          console.log("recaching file ", event.request.url);
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      })
-    );
-  }
-
   event.respondWith(
     caches.match(event.request).then(async () => {
       return await fetch(event.request).catch(() =>
-        caches.match("offline.html")
+        caches.match("logo512.png")
       );
     })
   );
