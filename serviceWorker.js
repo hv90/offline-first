@@ -17,7 +17,6 @@ self.addEventListener("install", (event) => {
 // Wait
 self.addEventListener("fetch", (event) => {
   console.log("requested ", event.request);
-  console.log("The service worker is serving the asset.");
   // You can use `respondWith()` to answer ASAP...
   // event.respondWith();
 
@@ -30,17 +29,11 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  caches.open(CACHE_NAME).then(function (cache) {
-    cache
-      .match(event.request.url)
-      .then((response) => console.log("response open: ", response));
-  });
-
   event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() =>
-        caches.match("offline.html").catch((e) => {
-          console.log("erro: ", e);
+        caches.open(CACHE_NAME).then(function (cache) {
+          cache.match(event.request.url).then((response) => response);
         })
       );
     })
