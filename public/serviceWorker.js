@@ -35,9 +35,17 @@ self.addEventListener("fetch", (event) => {
     })
   ); */
 
-  event.respondWith(caches.match("offline.html"));
+  try {
+    event.respondWith(
+      caches.match(event.request).then(() => {
+        return fetch(event.request);
+      })
+    );
+  } catch (e) {
+    event.respondWith(caches.match("offline.html"));
 
-  event.respondWith(caches.match("logo512.png"));
+    event.respondWith(caches.match("logo512.png"));
+  }
 });
 
 //
