@@ -33,7 +33,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() =>
-        caches.match(event.request.url).catch((e) => {
+        caches.match("offline.html").catch((e) => {
           console.log("erro: ", e);
         })
       );
