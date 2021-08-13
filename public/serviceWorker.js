@@ -33,6 +33,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
         return fetch(event.request).then(function (response) {
+          console.log("recaching file ", event.request.url);
           cache.put(event.request, response.clone());
           return response;
         });
