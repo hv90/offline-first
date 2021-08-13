@@ -28,21 +28,21 @@ self.addEventListener("fetch", (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  event.waitUntil(
-    event.respondWith(
-      caches.match(event.request).then(() => {
-        return fetch(event.request).catch(() => getFromCache(event));
-      })
-    )
+
+  event.respondWith(
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch(() => getFromCache());
+    })
   );
 });
 
 //
-const getFromCache = (event) => {
-  urlsToCache.map((url) =>
-    caches.open(CACHE_NAME).then((cache) => event.respondWith(cache.match(url)))
+const getFromCache = () =>
+  Promise.all(
+    urlsToCache.map((url) =>
+      caches.open(CACHE_NAME).then((cache) => cache.match(url))
+    )
   );
-};
 
 // Activate
 self.addEventListener("activate", (event) => {
