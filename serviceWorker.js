@@ -6,11 +6,11 @@ const self = this;
 // Install
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Installing cache... ");
-
-      return cache.addAll(urlsToCache);
-    })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      console.log("[Service Worker] Caching all: app shell and content");
+      await cache.addAll(urlsToCache);
+    })()
   );
 });
 
@@ -35,9 +35,20 @@ self.addEventListener("fetch", (event) => {
     })
   ); */
   event.respondWith(
-    caches.match(event.request).then(() => {
-      return fetch(event.request).catch((e) => caches.match("offline.html"));
-    })
+    (async () => {
+      const r = await caches.match(event.request);
+      console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
+      if (r) {
+        return r;
+      }
+      const response = await fetch(event.request);
+      const cache = await caches.open(CACHE_NAME);
+      console.log(
+        `[Service Worker] Caching new resource: ${event.request.url}`
+      );
+      cache.put(event.request, response.clone());
+      return response;
+    })()
   );
 });
 
