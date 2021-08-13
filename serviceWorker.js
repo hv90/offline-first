@@ -15,7 +15,7 @@ self.addEventListener("install", (event) => {
 });
 
 // Wait
-self.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", async (event) => {
   console.log("requested ", event.request);
   // You can use `respondWith()` to answer ASAP...
   // event.respondWith();
@@ -28,8 +28,8 @@ self.addEventListener("fetch", (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  urlsToCache.forEach((url) => {
-    event.respondWith(
+  urlsToCache.forEach(async (url) => {
+    await event.respondWith(
       caches.match(event.request).then(() => {
         return fetch(event.request).catch(() =>
           caches.open(CACHE_NAME).then((cache) => {
