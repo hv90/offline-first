@@ -28,7 +28,7 @@ self.addEventListener("fetch", (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  urlsToCache.forEach((url) => {
+  /*   urlsToCache.forEach((url) => {
     event.respondWith(
       caches.match(event.request).then(() => {
         return fetch(event.request).catch(() =>
@@ -38,7 +38,7 @@ self.addEventListener("fetch", (event) => {
         );
       })
     );
-  });
+  }); */
 });
 
 // Activate
