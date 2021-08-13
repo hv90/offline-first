@@ -34,10 +34,10 @@ self.addEventListener("fetch", (event) => {
       return fetch(event.request).catch(() => getFromCache());
     })
   ); */
-  event.respondWith(async () => {
-    await fetch(event.request)
+  event.respondWith(() => {
+    fetch(event.request)
       .then((r) => r)
-      .catch((e) => caches.match("offline.html"));
+      .catch((e) => caches.match(event.request));
     console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
 
     // const cache = await caches.open(CACHE_NAME);
