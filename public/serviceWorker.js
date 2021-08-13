@@ -32,9 +32,11 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() =>
-        caches.open(CACHE_NAME).then(function (cache) {
-          cache.match(event.request.url).then((response) => response);
-        })
+        caches
+          .open(CACHE_NAME)
+          .then((cache) =>
+            cache.match(event.request.url).then((response) => response)
+          )
       );
     })
   );
