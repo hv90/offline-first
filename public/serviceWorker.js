@@ -8,7 +8,6 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
-      console.log("[Service Worker] Caching all: app shell and content");
       await cache.addAll(urlsToCache);
     })()
   );
@@ -32,8 +31,9 @@ self.addEventListener("fetch", (event) => {
     caches.match(event.request).then(async () => {
       console.log("serving from cache: ", event.request);
       return await fetch(event.request)
-        .then(() => {
+        .then((res) => {
           console.log("serving from fetch: ", event.request);
+          return res;
         })
         .catch(() => {
           console.log("serving from fallback: ", caches.match("offline.html"));
