@@ -29,15 +29,21 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  event
-    .respondWith(
-      caches.match(event.request).then(async () => {
-        return await fetch(event.request);
-      })
-    )
-    .catch((e) => {
-      console.log("error: ", e);
-    });
+  event.respondWith(
+    caches.match(event.request).then(async () => {
+      return await fetch(event.request).catch(() =>
+        caches.match("offline.html")
+      );
+    })
+  );
+
+  event.respondWith(
+    caches.match(event.request).then(async () => {
+      return await fetch(event.request).catch(() =>
+        caches.match("logo512.png")
+      );
+    })
+  );
 });
 
 //
