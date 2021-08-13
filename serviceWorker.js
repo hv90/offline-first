@@ -28,7 +28,7 @@ self.addEventListener("fetch", async (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  event.respondWith(
+  await event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(async () => await getFromCache(event));
     })
