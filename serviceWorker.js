@@ -16,7 +16,6 @@ self.addEventListener("install", (event) => {
 
 // Wait
 self.addEventListener("fetch", (event) => {
-  console.log("requested ", event.request);
   // You can use `respondWith()` to answer ASAP...
   // event.respondWith();
 
@@ -31,10 +30,15 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     caches.match(event.request).then(async () => {
-      return await fetch(event.request).catch(() => {
-        console.log(caches.match("offline.html"));
-        return caches.match("offline.html");
-      });
+      console.log("serving from cache: ", event.request);
+      return await fetch(event.request)
+        .then(() => {
+          console.log("serving from fetch: ", event.request);
+        })
+        .catch(() => {
+          console.log("serving from fallback: ", caches.match("offline.html"));
+          return caches.match("offline.html");
+        });
     })
   );
 });
