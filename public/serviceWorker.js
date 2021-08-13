@@ -31,7 +31,9 @@ self.addEventListener("fetch", (event) => {
   ); */
 
   caches.open(CACHE_NAME).then(function (cache) {
-    console.log("caches open: ", cache.match(event.request.url));
+    cache
+      .match(event.request.url)
+      .then((response) => console.log("response open: ", response));
   });
 
   event.respondWith(
