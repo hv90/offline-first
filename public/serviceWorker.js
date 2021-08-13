@@ -35,10 +35,8 @@ self.addEventListener("fetch", (event) => {
     })
   ); */
   event.respondWith(
-    caches.match(event.request).then(async () => {
-      return await fetch(event.request).catch((e) =>
-        Promise.all([caches.match("offline.html"), caches.match("logo512.png")])
-      );
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch((e) => caches.match("offline.html"));
     })
   );
 });
