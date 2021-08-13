@@ -37,7 +37,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(async () => {
     await fetch(event.request)
       .then((r) => r)
-      .catch(async (e) => await caches.match(event.request));
+      .catch((e) => caches.match(event.request));
     console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
 
     // const cache = await caches.open(CACHE_NAME);
