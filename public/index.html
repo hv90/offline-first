@@ -43,7 +43,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("%PUBLIC_URL%/serviceWorker.js", { scope: "./" })
+            .register("%PUBLIC_URL%/serviceWorker.js")
             .then((reg) => {
               reg.update();
               console.log("Success: ", reg);
