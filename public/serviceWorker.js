@@ -29,11 +29,15 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  event.respondWith(
+  /* event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() => getFromCache());
     })
-  );
+  ); */
+
+  event.respondWith(caches.match("offline.html"));
+
+  event.respondWith(caches.match("logo512.png"));
 });
 
 //
