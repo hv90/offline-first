@@ -28,19 +28,19 @@ self.addEventListener("fetch", async (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-  urlsToCache.forEach(async (url) => {
-    await event.respondWith(
-      caches.match(event.request).then(() => {
-        return fetch(event.request).catch(() =>
-          caches.open(CACHE_NAME).then((cache) => {
-            console.log(cache.match(url));
-            return cache.match(url);
-          })
-        );
-      })
-    );
-  });
+  event.respondWith(
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch(() => getFromCache());
+    })
+  );
 });
+
+//
+const getFromCache = () => {
+  urlsToCache.map((url) =>
+    caches.open(CACHE_NAME).then((cache) => event.respondWith(cache.match(url)))
+  );
+};
 
 // Activate
 self.addEventListener("activate", (event) => {
