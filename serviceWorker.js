@@ -30,7 +30,7 @@ self.addEventListener("fetch", async (event) => {
   ); */
   event.respondWith(
     caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() => getFromCache(event));
+      return fetch(event.request).catch(async () => await getFromCache(event));
     })
   );
 });
