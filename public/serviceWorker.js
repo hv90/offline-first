@@ -28,17 +28,17 @@ self.addEventListener("fetch", (event) => {
       // resource is up to date.
       .then(refresh)
   ); */
-
-  event.respondWith(
-    caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() =>
-        caches.open(CACHE_NAME).then((cache) => {
-          console.log(cache);
-          return cache.match("offline.html");
-        })
-      );
-    })
-  );
+  urlsToCache.forEach((url) => {
+    event.respondWith(
+      caches.match(event.request).then(() => {
+        return fetch(event.request).catch(() =>
+          caches.open(CACHE_NAME).then((cache) => {
+            return cache.match(url);
+          })
+        );
+      })
+    );
+  });
 });
 
 // Activate
