@@ -32,7 +32,7 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then(async () => {
       return await fetch(event.request).catch(() =>
-        caches.match("offline.html").then(() => caches.match("logo512.png"))
+        caches.match("offline.html")
       );
     })
   );
