@@ -30,6 +30,10 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
+  caches.open(CACHE_NAME).then(function (cache) {
+    console.log("caches open: ", cache.match(event.request.url));
+  });
+
   event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() =>
