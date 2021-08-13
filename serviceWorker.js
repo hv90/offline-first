@@ -20,14 +20,15 @@ self.addEventListener("fetch", (event) => {
   console.log("The service worker is serving the asset.");
   // You can use `respondWith()` to answer ASAP...
   event.respondWith(fromCache(event.request));
+
   // ...and `waitUntil()` to prevent the worker to be killed until
   // the cache is updated.
-  event.waitUntil(
+  /*   event.waitUntil(
     update(event.request)
       // Finally, send a message to the client to inform it about the
       // resource is up to date.
       .then(refresh)
-  );
+  ); */
 
   /*   event.respondWith(
     caches.match(event.request).then(() => {
