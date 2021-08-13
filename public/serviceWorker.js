@@ -29,6 +29,10 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
+  caches.keys().then(function (keys) {
+    return console.log(Promise.all(keys.map((key) => key)));
+  });
+
   event.respondWith(
     caches.match(event.request).then(async () => {
       return await fetch(event.request).catch(() =>
