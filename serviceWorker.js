@@ -29,9 +29,16 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  caches.keys().then(function (keys) {
-    return console.log(Promise.all(keys.map((key) => key)));
-  });
+  if (urlsToCache.includes(event.request.url)) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return fetch(event.request).then(function (response) {
+          cache.put(event.request, response.clone());
+          return response;
+        });
+      })
+    );
+  }
 
   event.respondWith(
     caches.match(event.request).then(async () => {
