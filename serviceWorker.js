@@ -19,7 +19,7 @@ self.addEventListener("fetch", (event) => {
   console.log("requested ", event.request);
   console.log("The service worker is serving the asset.");
   // You can use `respondWith()` to answer ASAP...
-  event.respondWith(fromCache(event.request));
+  event.respondWith();
 
   // ...and `waitUntil()` to prevent the worker to be killed until
   // the cache is updated.
@@ -30,15 +30,16 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  /*   event.respondWith(
+  event.respondWith(
     caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() =>
-        caches.match("offline.html").catch((e) => {
+      return fetch(event.request).catch(
+        () => fromCache(event.request)
+        /* caches.match("offline.html").catch((e) => {
           console.log("erro: ", e);
-        })
+        }) */
       );
     })
-  ); */
+  );
 });
 
 // Activate
