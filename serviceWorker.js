@@ -42,11 +42,11 @@ self.addEventListener("fetch", (event) => {
         return r;
       }
       const response = await fetch(event.request);
-      const cache = await caches.open(CACHE_NAME);
-      console.log(
+      // const cache = await caches.open(CACHE_NAME);
+      /* console.log(
         `[Service Worker] Caching new resource: ${event.request.url}`
-      );
-      cache.put(event.request, response.clone());
+      ); */
+      // cache.put(event.request, response.clone());
       return response;
     })()
   );
