@@ -38,7 +38,7 @@ self.addEventListener("fetch", (event) => {
   try {
     event.respondWith(
       caches.match(event.request).then(() => {
-        return fetch(event.request);
+        return fetch(event.request).catch((e) => console.log(e));
       })
     );
   } catch (e) {
