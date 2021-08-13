@@ -34,18 +34,13 @@ self.addEventListener("fetch", (event) => {
       return fetch(event.request).catch(() => getFromCache());
     })
   ); */
-
-  try {
-    event.respondWith(
-      caches.match(event.request).then(() => {
-        return fetch(event.request).catch((e) => console.log(e));
-      })
-    );
-  } catch (e) {
-    event.respondWith(caches.match("offline.html"));
-
-    event.respondWith(caches.match("logo512.png"));
-  }
+  event.respondWith(
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch((e) =>
+        Promise.all([caches.match("offline.html"), caches.match("logo512.png")])
+      );
+    })
+  );
 });
 
 //
