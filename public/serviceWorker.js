@@ -29,22 +29,13 @@ self.addEventListener("fetch", (event) => {
       .then(refresh)
   ); */
 
-  /* event.respondWith(
-    caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() => getFromCache());
+  event.respondWith(
+    caches.match(event.request).then(async () => {
+      return await fetch(event.request).catch(() =>
+        caches.match("offline.html")
+      );
     })
-  ); */
-  event.respondWith(async () => {
-    return await fetch(event.request)
-      .then((r) => r)
-      .catch((e) => caches.match(event.request));
-
-    // const cache = await caches.open(CACHE_NAME);
-    /* console.log(
-        `[Service Worker] Caching new resource: ${event.request.url}`
-      ); */
-    // cache.put(event.request, response.clone());
-  });
+  );
 });
 
 //
