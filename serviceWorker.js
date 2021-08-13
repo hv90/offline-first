@@ -30,13 +30,13 @@ self.addEventListener("fetch", async (event) => {
   ); */
   event.respondWith(
     caches.match(event.request).then(() => {
-      return fetch(event.request).catch(() => getFromCache());
+      return fetch(event.request).catch(() => getFromCache(event));
     })
   );
 });
 
 //
-const getFromCache = () => {
+const getFromCache = (event) => {
   urlsToCache.map((url) =>
     caches.open(CACHE_NAME).then((cache) => event.respondWith(cache.match(url)))
   );
