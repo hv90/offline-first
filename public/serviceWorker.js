@@ -36,12 +36,12 @@ self.addEventListener("fetch", (event) => {
   ); */
   event.respondWith(
     (async () => {
-      const r = await caches.match(event.request);
+      const r = await fetch(event.request);
       console.log(`[Service Worker] Fetching resource: ${event.request.url}`);
       if (r) {
         return r;
       }
-      const response = await fetch(event.request);
+      const response = await caches.match(event.request);
       // const cache = await caches.open(CACHE_NAME);
       /* console.log(
         `[Service Worker] Caching new resource: ${event.request.url}`
