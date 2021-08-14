@@ -39,5 +39,11 @@
         alt="logo"
       />
     </div>
+    <script>
+      //host is the element that holds the shadow root:
+      var style = document.createElement("style");
+      style.innerHTML = ".infobar { display:none; }";
+      host.shadowRoot.appendChild(style);
+    </script>
   </body>
 </html>
