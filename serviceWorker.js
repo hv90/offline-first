@@ -5,6 +5,8 @@ const self = this;
 
 // Install
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
+
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
