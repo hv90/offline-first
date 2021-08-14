@@ -39,7 +39,7 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() => {
           console.log("serving from fallback: ", caches.match("offline.html"));
-          return caches.match("offline.html");
+          return caches.match("offline_test.html");
         });
     })
   );
