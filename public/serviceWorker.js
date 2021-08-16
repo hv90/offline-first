@@ -1,5 +1,5 @@
 const CACHE_NAME = "v1";
-const urlsToCache = ["offline3.html"];
+const urlsToCache = ["offline2.html"];
 
 const self = this;
 
@@ -39,7 +39,7 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() => {
           console.log("serving from fallback: ", caches.match("offline.html"));
-          return caches.match("offline3.html");
+          return caches.match("offline2.html");
         });
     })
   );
